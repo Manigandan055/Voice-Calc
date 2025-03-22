@@ -1,0 +1,73 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Professional ATS Resume Builder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Professional ATS Resume Builder</h1>
+        <form method="POST">
+            <section>
+                <h2>Personal Information</h2>
+                <input type="text" name="name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="tel" name="phone" placeholder="Phone" required>
+                <input type="text" name="address" placeholder="City, State, ZIP" required>
+                <input type="url" name="linkedin" placeholder="LinkedIn URL (optional)">
+            </section>
+
+            <section>
+                <h2>Professional Objective</h2>
+                <textarea name="objective" placeholder="Brief career objective (e.g., Seeking a software engineering role...)" required></textarea>
+            </section>
+
+            <section>
+                <h2>Work Experience</h2>
+                <textarea name="experience" placeholder="Job Title - Company - Dates&#10;• Responsibility 1&#10;• Responsibility 2" required></textarea>
+            </section>
+
+            <section>
+                <h2>Education</h2>
+                <textarea name="education" placeholder="Degree - University - Dates" required></textarea>
+            </section>
+
+            <section>
+                <h2>Skills</h2>
+                <textarea name="skills" placeholder="Enter skills (one per line, e.g., Python&#10;Project Management)" required></textarea>
+            </section>
+
+            <section>
+                <h2>Certifications (Optional)</h2>
+                <textarea name="certifications" placeholder="Certification - Issuer - Date (one per line)"></textarea>
+            </section>
+
+            <section>
+                <h2>Projects (Optional)</h2>
+                <textarea name="projects" placeholder="Project Title - Description - Dates"></textarea>
+            </section>
+
+            <section>
+                <h2>References (Optional)</h2>
+                <textarea name="references" placeholder="Name - Title - Contact (Available upon request is fine)"></textarea>
+            </section>
+
+            <section>
+                <h2>Design Selection</h2>
+                <select name="template" required>
+                    <option value="professional">Professional</option>
+                    <option value="executive">Executive</option>
+                </select>
+                <select name="color" required>
+                    <option value="navy">Navy Blue</option>
+                    <option value="charcoal">Charcoal</option>
+                    <option value="forest">Forest Green</option>
+                </select>
+            </section>
+
+            <button type="submit">Preview Resume</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!-- templates/preview.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Preview</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .resume {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        .navy-theme { color: #1b263b; }
+        .charcoal-theme { color: #333333; }
+        .forest-theme { color: #2d6a4f; }
+        .professional-template h2 {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+        .executive-template h2 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li:before {
+            content: "• ";
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="resume {{ data.template }}-template {{ data.color }}-theme">
+            <h1>{{ data.name }}</h1>
+            <p>{{ data.email }} | {{ data.phone }}</p>
+            <p>{{ data.address }}</p>
+            {% if data.linkedin %}<p>LinkedIn: {{ data.linkedin }}</p>{% endif %}
+
+            <h2>Objective</h2>
+            <p>{{ data.objective }}</p>
+
+            <h2>Work Experience</h2>
+            <p>{{ data.experience|replace('\n', '<br>')|safe }}</p>
+
+            <h2>Education</h2>
+            <p>{{ data.education|replace('\n', '<br>')|safe }}</p>
+
+            <h2>Skills</h2>
+            <ul>
+                {% for skill in data.skills %}
+                    <li>{{ skill }}</li>
+                {% endfor %}
+            </ul>
+
+            {% if data.certifications[0] %}
+            <h2>Certifications</h2>
+            <ul>
+                {% for cert in data.certifications %}
+                    <li>{{ cert }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if data.projects %}
+            <h2>Projects</h2>
+            <p>{{ data.projects|replace('\n', '<br>')|safe }}</p>
+            {% endif %}
+
+            {% if data.references %}
+            <h2>References</h2>
+            <p>{{ data.references|replace('\n', '<br>')|safe }}</p>
+            {% endif %}
+        </div>
+
+        {% if not download %}
+        
+        <form method="POST" action="{{ url_for('download', format='txt') }}">
+            {% for key, value in data.items() %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endfor %}
+            <button type="submit">Download TXT</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
